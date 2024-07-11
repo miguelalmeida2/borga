@@ -1,0 +1,508 @@
+openapi: 3.0.0
+info:
+  title: BORGA
+  description: API Description of BORGA
+  version: 1.0.0
+tags:
+  - name: games
+    description: Access games from Board Game Atlas
+  - name: groups
+    description: Access your game groups
+  - name: users
+    description: Operations about users
+paths:
+  /api/games/mostPopular:
+    get:
+      tags:
+        - games
+      summary: Get list of most popular games
+      operationId: getMostPopularGames
+      responses:
+        "200":
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/GameList"
+        "500":
+          description: General failure
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        "503":
+          description: Unexpected behaviour from Board Game Atlas
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+  /api/games:
+    get:
+      tags:
+        - games
+      summary: Find game by name
+      operationId: searchGame
+      parameters:
+        - name: name
+          in: query
+          description: Name of the game to search
+          required: true
+          style: form
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/GameList"
+        "400":
+          description: name is missing
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        "404":
+          description: Game not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        "500":
+          description: General failure
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        "503":
+          description: Unexpected behaviour from Board Game Atlas
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+  /api/groups:
+    get:
+      tags:
+        - groups
+      summary: Get all groups
+      operationId: listAllGroups
+      security:
+        - bearerAuth: []
+      responses:
+        "200":
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  groups:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/Group"
+        "401":
+          description: Invalid or bad token
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        "404":
+          description: No group was found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+    post:
+      tags:
+        - groups
+      summary: Create new group
+      operationId: createGroup
+      security:
+        - bearerAuth: []
+      requestBody:
+        description: Group object to add
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/NewGroup"
+        required: true
+      responses:
+        "201":
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  groupId:
+                    type: string
+        "400":
+          description: Parameter is missing
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        "401":
+          description: Invalid or bad token
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        "404":
+          description: Group was not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        "409":
+          description: Group already exists
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+  /api/groups/{groupId}:
+    get:
+      tags:
+        - groups
+      summary: Get group details
+      operationId: getGroupDetails
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: groupId
+          in: path
+          description: Id of the group to get details
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/GroupDetails"
+        "401":
+          description: Invalid or bad token
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        "404":
+          description: Group was not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        "500":
+          description: General failure
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        "503":
+          description: Unexpected behaviour from Board Game Atlas
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+    put:
+      tags:
+        - groups
+      summary: Edit group name and description
+      operationId: editGroup
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: groupId
+          in: path
+          description: Id of the group to edit
+          required: true
+          schema:
+            type: string
+      requestBody:
+        description: New group details
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/NewGroup"
+        required: true
+      responses:
+        "200":
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Group"
+        "400":
+          description: Parameter is missing
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        "401":
+          description: Missing API token. The user is not authenticated.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        "404":
+          description: Group not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+    delete:
+      tags:
+        - groups
+      summary: Delete group
+      operationId: deleteGroup
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: groupId
+          in: path
+          description: Id of the group to delete
+          required: true
+          schema:
+            type: string
+          example: EfmTZS3TQZWxdfsYYnNOUA
+      responses:
+        "200":
+          description: Group deleted
+          content:
+            application/json:
+              schema:
+                properties:
+                  gameId:
+                    type: string
+        "401":
+          description: Missing API token. The user is not authenticated.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        "404":
+          description: Group not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+  /api/groups/{groupId}/games:
+    post:
+      tags:
+        - groups
+      summary: Add game to group
+      operationId: addGame
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: groupId
+          in: path
+          description: Id of the group to add game to
+          required: true
+          schema:
+            type: string
+          example: EfmTZS3TQZWxdfsYYnNOUA
+      requestBody:
+        description: Game object to add
+        content:
+          application/json:
+            schema:
+              properties:
+                gameId:
+                  type: string
+        required: true
+      responses:
+        "201":
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                properties:
+                  gameId:
+                    type: string
+        "400":
+          description: gameId is missing
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        "401":
+          description: Invalid or bad token
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        "404":
+          description: Group was not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        "409":
+          description: Game already exists
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+  /api/groups/{groupId}/games/{gameId}:
+    delete:
+      tags:
+        - groups
+      summary: Delete game from group
+      operationId: removeGame
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: groupId
+          in: path
+          description: Id of the group to delete game from
+          required: true
+          schema:
+            type: string
+          example: EfmTZS3TQZWxdfsYYnNOUA
+        - name: gameId
+          in: path
+          description: Id of Game
+          required: true
+          schema:
+            type: string
+          example: TAAifFP590
+      responses:
+        "200":
+          description: Game deleted
+          content:
+            application/json:
+              schema:
+                properties:
+                  gameId:
+                    type: string
+        "401":
+          description: Missing API token. The user is not authenticated.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        "404":
+          description: Game not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+  /api/users:
+    post:
+      tags:
+        - users
+      summary: Create new user
+      operationId: createUser
+      requestBody:
+        description: User object to add
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/User"
+        required: true
+      responses:
+        "201":
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                properties:
+                  token:
+                    type: string
+        "400":
+          description: Parameter is missing
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        "409":
+          description: User already exists
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+components:
+  schemas:
+    GameList:
+      type: object
+      properties:
+        games:
+          type: array
+          items:
+            $ref: "#/components/schemas/Game"
+    Game:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        url:
+          type: string
+        imageUrl:
+          type: string
+        rank:
+          type: integer
+        description:
+          type: string
+    User:
+      type: object
+      properties:
+        name:
+          type: string
+        username:
+          type: string
+        password:
+          type: string
+    Group:
+      type: object
+      properties:
+        name:
+          type: string
+        description:
+          type: string
+        gameIds:
+          type: array
+          items:
+            type: string
+    NewGroup:
+      type: object
+      properties:
+        name:
+          type: string
+        description:
+          type: string
+    GroupDetails:
+      type: object
+      properties:
+        name:
+          type: string
+        description:
+          type: string
+        games:
+          type: array
+          items:
+            type: string
+    Error:
+      type: object
+      properties:
+        cause:
+          type: object
+          properties:
+            code:
+              type: integer
+            name:
+              type: string
+            description:
+              type: string
+            info:
+              type: object
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT

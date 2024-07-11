@@ -1,0 +1,10 @@
+<form class="login {{#if error}}error{{/if}}" action="/login" method="post">
+    <div class="loginContainer">
+        <input type="text" placeholder="Username" name="username" required>
+        <input type="password" placeholder="Password" name="password" required>
+        <button type="submit">Login</button>
+        {{#if error}}
+        <h3 class="error">{{error}}</h3>
+        {{/if}}
+    </div>
+</form>

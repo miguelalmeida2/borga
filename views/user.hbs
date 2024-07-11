@@ -1,0 +1,33 @@
+<h1>{{user.name}}</h1>
+<table>
+    <tbody>
+        <tr>
+            <th>Username:</th>
+            <td>{{user.username}}</td>
+        </tr>
+        <tr>
+            <th>Token:</th>
+            <td class="hide">
+                <input type="password" value="{{user.token}}" readonly>
+                <button class="show" onclick="showToken(this)"><i class="fa fa-eye"></i></button>
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+<form class="logout" action="/logout" method="post" style="margin-top: 10px;">
+    <button type="submit">Logout</button>
+</form>
+
+<script>
+    function showToken(button) {
+        const input = button.previousElementSibling;
+        if (input.type === 'password') {
+            button.innerHTML = '<i class="fa fa-eye-slash"></i>';
+            input.type = 'text';
+        } else {
+            button.innerHTML = '<i class="fa fa-eye"></i>';
+            input.type = 'password';
+        }
+    }
+</script>

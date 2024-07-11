@@ -1,0 +1,81 @@
+<div style="position: relative;">
+    <div id="delete">
+        <button title="Delete" onclick="deleteGroup('{{group.id}}')">
+            <i class="fa fa-trash" style="color: red; font-size: large;"></i>
+            <span style="margin-left: 10px;">Delete</span>
+        </button>
+    </div>
+    <form id="edit" action="/my/groups/{{group.id}}" method="post">
+        <h3>Name:</h3>
+        <input name="name" value="{{group.name}}" required pattern=".*\S+.*">
+        <h3>Description:</h3>
+        <textarea name="description" required>{{group.description}}</textarea>
+        <button title="Save Changes" type="submit">Save Changes</button>
+    </form>
+</div>
+
+{{#if group.games}}
+<h2>Games:</h2>
+<div id="game-list">
+    {{#each group.games}}
+    <div class="game">
+        <div class="image-container">
+            <img alt="{{this.name}}" src="{{this.imageUrl}}">
+            <div>
+                <button class="fa fa-trash" title="Delete"
+                    onclick="removeGame('{{../group.id}}', '{{this.id}}')"></button>
+            </div>
+        </div>
+        <div class="details">
+            <h2><a href="/games/{{this.id}}">{{this.name}}</a></h2>
+            <div class="description">{{{this.description}}}</div>
+        </div>
+    </div>
+    {{/each}}
+</div>
+{{else}}
+<h2><i>This group is empty</i></h2>
+{{/if}}
+
+<script>
+    $("textarea").each(function () {
+        this.setAttribute("style", "height:" + (this.scrollHeight) + "px;");
+    }).on("input", function () {
+        this.style.height = "auto";
+        this.style.height = (this.scrollHeight) + "px";
+    });
+
+    async function deleteGroup(groupId) {
+        try {
+            const result = await fetch(`/api/groups/${groupId}`, {
+                method: 'DELETE'
+            });
+
+            if (result.status === 200) {
+                location.replace("/my/groups");
+            } else {
+                const answer = await result.json();
+                alert(`Failed to delete group:\n${JSON.stringify(answer.cause, null, 2)}`);
+            }
+        } catch (err) {
+            alert(`Failed to delete group:\n${err.message}`);
+        }
+    }
+
+    async function removeGame(groupId, gameId) {
+        try {
+            const result = await fetch(`/api/groups/${groupId}/games/${gameId}`, {
+                method: 'DELETE'
+            });
+
+            if (result.status === 200) {
+                location.reload();
+            } else {
+                const answer = await result.json();
+                alert(`Failed to delete group:\n${JSON.stringify(answer.cause, null, 2)}`);
+            }
+        } catch (err) {
+            alert(`Failed to delete group:\n${err.message}`);
+        }
+    }
+</script>

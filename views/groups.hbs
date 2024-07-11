@@ -1,0 +1,35 @@
+<h1>Game Groups</h1>
+<p>Here you can create and see your game groups</p>
+<div style="display: flex;">
+    <div style="margin-right: 50px;">
+        <h2>Create Group:</h2>
+        <form id="create" method="post">
+            <input type="text" name="name" placeholder="Name" required pattern=".*\S+.*">
+            <textarea name="description" placeholder="Description" required></textarea>
+            <button>Create</button>
+        </form>
+    </div>
+    {{#if groups}}
+    <div>
+        <h2>Your Groups:</h2>
+        <dl>
+            {{#each groups}}
+            <dt>
+                <h2><a href="/my/groups/{{this.id}}">{{this.name}}</a></h2>
+            </dt>
+            <dd>{{this.description}}</dd>
+            {{/each}}
+        </dl>
+    </div>
+    {{else}}
+    <h2><i>You have no groups</i></h2>
+    {{/if}}
+</div>
+<script>
+    $("textarea").each(function () {
+        this.setAttribute("style", "height:" + (this.scrollHeight) + "px;");
+    }).on("input", function () {
+        this.style.height = "auto";
+        this.style.height = (this.scrollHeight) + "px";
+    });
+</script>

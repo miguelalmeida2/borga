@@ -1,0 +1,29 @@
+<h1>What's BORGA?</h1>
+<p>BORGA is an application that allows its users to search for games and create game groups</p>
+<p>
+    Developed by group 11 (class 32D) of the
+    <em><a href="https://github.com/isel-leic-ipw/">IPW</a></em>
+    course at
+    <em><a href="https://www.isel.pt">ISEL</a></em>
+</p>
+
+{{#if games}}
+<h1>Most Popular Games</h1>
+<div id="game-list" class="rank">
+    {{#each games}}
+    <div class="game">
+        <div class="image-container">
+            <img alt="{{this.name}}" src="{{this.imageUrl}}">
+            <form action="my/games" method="post">
+                <input type="hidden" name="gameId" value="{{this.id}}">
+                <button title="Save">+</button>
+            </form>
+        </div>
+        <div class="details">
+            <h2><span class="rank">{{this.rank}}. </span><a href="/games/{{this.id}}">{{this.name}}</a></h2>
+            <div class="description">{{{this.description}}}</div>
+        </div>
+    </div>
+    {{/each}}
+</div>
+{{/if}}

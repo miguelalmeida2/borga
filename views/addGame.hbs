@@ -1,0 +1,13 @@
+<h1>Saving '{{game.name}}'</h1>
+<form method="post" action="/my/games">
+    <input type="hidden" name="gameId" value="{{game.id}}">
+    <label>
+        Choose the group to add the game to:
+        <select name="groupId" required pattern=".*\S+.*">
+            {{#each groups}}
+            <option value="{{this.id}}">{{this.name}}</option>
+            {{/each}}
+        </select>
+    </label>
+    <button title="Add Game">Add Game</button>
+</form>

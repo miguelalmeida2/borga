@@ -1,0 +1,51 @@
+{{#if gameDetails}}
+<h1>Game details</h1>
+<table>
+    <tbody>
+        <tr>
+            <th>ID:</th>
+            <td>{{gameDetails.id}}</td>
+        </tr>
+        <tr>
+            <th>Name:</th>
+            <td>{{gameDetails.name}}</td>
+        </tr>
+        <tr>
+            <th>Published:</th>
+            <td>{{gameDetails.yearPublished}}</td>
+        </tr>
+        <tr>
+            <th>Rank:</th>
+            <td>{{gameDetails.rank}}</td>
+        </tr>
+        <tr>
+            <th>Description:</th>
+            <td>{{{gameDetails.description}}}</td>
+        </tr>
+        <tr>
+            <th>URL:</th>
+            <td><a href="{{gameDetails.url}}">{{gameDetails.url}}</a></td>
+        </tr>
+        <tr>
+            <th>Image URL:</th>
+            <td><a href="{{gameDetails.imageUrl}}">{{gameDetails.imageUrl}}</a></td>
+        </tr>
+        <tr>
+            <th>Mechanics:</th>
+            <td>
+                {{#each gameDetails.mechanics}}
+                <a href="{{this.url}}">{{this.name}}</a>{{#unless @last}}, {{/unless}}
+                {{/each}}
+            </td>
+        </tr>
+        <tr>
+            <th>Categories:</th>
+            <td>
+                {{#each gameDetails.categories}}
+                <a href="{{this.url}}">{{this.name}}</a>{{#unless @last}}, {{/unless}}
+                {{/each}}
+            </td>
+        </tr>
+    </tbody>
+</table>
+{{/if}}

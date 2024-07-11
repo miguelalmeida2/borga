@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset='utf-8'>
+    <title>BORGA</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    {{!--
+    <link rel='stylesheet' href='https://meyerweb.com/eric/tools/css/reset/reset.css'> --}}
+    <link rel='stylesheet' href='/public/style.css'>
+</head>
+
+<body>
+    <div id="background"></div>
+    <div id="y-scrollable">
+        <nav>
+            <ul>
+                <li><a {{#if active.home}}class="active" {{/if}}href="/">Home</a></li>
+                <li><a {{#if active.search}}class="active" {{/if}}href="/search">Search</a></li>
+                <li><a {{#if active.groups}}class="active" {{/if}} href="/my/groups">Groups</a></li>
+                {{#if username}}
+                <li class="right"><a {{#if active.profile}}class="active" {{/if}}href="/my">Profile</a></li>
+                {{else}}
+                <li class="right"><a {{#if active.login}}class="active" {{/if}}href="/login">Login</a></li>
+                <li class="right"><a {{#if active.signup}}class="active" {{/if}}href="/signup">Sign Up</a></li>
+                {{/if}}
+                </li>
+            </ul>
+        </nav>
+        <div id="content">
+            {{{body}}}
+        </div>
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,29 @@
+{
+  "name": "borga",
+  "version": "1.0.0",
+  "description": "",
+  "main": "borga-server.js",
+  "scripts": {
+    "start": "node borga-launch.js",
+    "test": "jest --roots=tests/unit",
+    "integration-tests": "jest --roots=tests/integration"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "dotenv": "^10.0.0",
+    "express": "^4.17.3",
+    "express-session": "^1.17.2",
+    "hbs": "^4.2.0",
+    "node-fetch": "^2.6.7",
+    "passport": "^0.5.2",
+    "randexp": "^0.5.3",
+    "supertest": "^6.2.2",
+    "swagger-ui-express": "^4.3.0"
+  },
+  "devDependencies": {
+    "jest": "^27.5.1",
+    "nodemon": "^2.0.15"
+  }
+}

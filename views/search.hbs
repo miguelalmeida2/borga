@@ -1,0 +1,38 @@
+<h1>Search games</h1>
+<p>Here you can search for a game by its name</p>
+<form id="search" method="get">
+    <input class="with-button" type="text" placeholder="Name" name="query" value={{#if
+        result}}"{{result.query}}"{{else}}""{{/if}} required pattern=".*\S+.*">
+    <button class="inside" title="Search">🔍</button>
+</form>
+
+{{#if result}}
+{{#if result.games}}
+<h1>Search results for '{{result.query}}'</h1>
+<div id="game-list">
+    {{#each result.games}}
+    <div class="game">
+        <div class="image-container">
+            <img alt="{{this.name}}" src="{{this.imageUrl}}">
+            <form action="my/games" method="post">
+                <input type="hidden" name="gameId" value="{{this.id}}">
+                <button title="Save">+</button>
+            </form>
+        </div>
+        <div class="details">
+            <h2><a href="/games/{{this.id}}">{{this.name}}</a></h2>
+            <div class="description">
+                {{#if this.description}}
+                {{{this.description}}}
+                {{else}}
+                <p>No description available</p>
+                {{/if}}
+            </div>
+        </div>
+    </div>
+    {{/each}}
+</div>
+{{else}}
+<h1>No results found for '{{result.query}}'</h1>
+{{/if}}
+{{/if}}

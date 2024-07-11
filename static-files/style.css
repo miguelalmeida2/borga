@@ -1,0 +1,475 @@
+:root {
+  --accent-color: cyan;
+  --text-color: white;
+}
+
+#background {
+  width: 100%;
+  height: 100%;
+  bottom: 0;
+  left: 0;
+  position: fixed;
+  right: 0;
+  top: 0;
+  z-index: -1;
+  background: radial-gradient(
+      circle at 0% 100%,
+      rgba(54, 66, 84, 0.55) 0%,
+      rgba(54, 66, 84, 0.043) 70%,
+      rgba(54, 66, 84, 0) 80%
+    ),
+    radial-gradient(
+      circle at 100% 100%,
+      rgba(113, 135, 153, 0.55) 0%,
+      rgba(113, 135, 153, 0.043) 70%,
+      rgba(113, 135, 153, 0) 80%
+    ),
+    radial-gradient(
+      circle at 100% 0%,
+      rgba(54, 66, 84, 0.55) 0%,
+      rgba(54, 66, 84, 0.043) 70%,
+      rgba(54, 66, 84, 0) 80%
+    ),
+    radial-gradient(
+      circle at 0% 0%,
+      rgba(91, 114, 135, 0.55) 0%,
+      rgba(91, 114, 135, 0.043) 70%,
+      rgba(91, 114, 135, 0) 80%
+    ),
+    rgb(0, 0, 0);
+}
+
+::-webkit-scrollbar {
+  width: 14px;
+}
+
+::-webkit-scrollbar-thumb {
+  background-clip: padding-box;
+  background-color: rgba(0, 0, 0, 0.3);
+  border: 3px solid transparent;
+  border-radius: 8px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: rgba(255, 255, 255, 0.05);
+}
+
+::-webkit-scrollbar-track {
+  background-color: transparent;
+}
+
+body {
+  color: var(--text-color);
+  font-family: Calibri, sans-serif;
+  margin: 0;
+  overflow-y: hidden;
+}
+
+a {
+  color: var(--accent-color);
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+ol,
+ul {
+  /* Override user agent stylesheet */
+  list-style: none;
+  margin-block-start: 0;
+  margin-block-end: 0;
+  margin-inline-start: 0;
+  margin-inline-end: 0;
+  padding-inline-start: 0;
+}
+
+nav {
+  background-color: rgba(0, 0, 0, 0.3);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+  margin: 10px;
+  padding: 5px;
+  border-radius: 10px;
+}
+
+nav ul {
+  overflow: hidden;
+}
+
+nav li {
+  float: left;
+}
+
+nav li.right {
+  float: right;
+}
+
+#y-scrollable {
+  overflow-y: auto;
+  height: 100vh;
+}
+
+#content {
+  padding: 0 20px;
+}
+
+nav li a {
+  transition: background-color 0.2s ease;
+  display: block;
+  color: var(--text-color);
+  font-weight: bold;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none !important;
+  border-radius: 5px;
+  outline: none;
+}
+
+nav li a.active {
+  color: var(--accent-color);
+}
+
+nav li a:hover {
+  background-color: rgba(255, 255, 255, 0.05);
+}
+
+h1 {
+  font-size: xx-large;
+  margin: 20px 0;
+}
+
+h2 {
+  font-size: x-large;
+}
+
+h3 {
+  font-size: large;
+}
+
+em {
+  font-style: italic;
+}
+
+#game-list .game h2 {
+  margin: 0;
+}
+
+#game-list .game {
+  display: flex;
+  overflow: hidden;
+  background-color: rgba(0, 0, 0, 0.3);
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  border-radius: 8px;
+  margin: 10px 0;
+  padding: 10px;
+}
+
+#game-list .image-container {
+  position: relative;
+  width: 150px;
+  height: min-content;
+  display: inline-flex;
+  border-radius: 5px;
+}
+
+#game-list .image-container:hover form,
+#game-list .image-container:hover div {
+  opacity: 1;
+}
+
+#game-list .image-container form,
+#game-list .image-container div {
+  opacity: 0;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  backdrop-filter: blur(20px);
+  border-radius: inherit;
+  transition: 0.2s ease;
+}
+
+#game-list .image-container button {
+  width: 100%;
+  height: 100%;
+  padding: 0;
+  font-size: 100px;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+  text-align: center;
+  background-color: transparent;
+  color: rgba(0, 0, 0, 0.5);
+}
+
+#game-list .game img {
+  width: -webkit-fill-available;
+  object-fit: contain;
+  border-radius: inherit;
+  transition: all 0.5s ease;
+}
+
+#game-list .game .details {
+  margin: 0 10px 0 20px;
+  text-align: justify;
+  line-height: 1.2;
+}
+
+#game-list .game .details .description {
+  opacity: 0.8;
+}
+
+#game-list .game .details .rank {
+  opacity: 0.5;
+}
+
+#game-list .game .details h2 a {
+  color: inherit;
+}
+
+#game-list.rank .game:first-child .details h2 {
+  color: gold;
+  opacity: 1;
+}
+
+#game-list.rank .game:nth-child(2) .details h2 {
+  color: silver;
+  opacity: 1;
+}
+
+#game-list.rank .game:nth-child(3) .details h2 {
+  color: #ff5733;
+  opacity: 1;
+}
+
+input,
+textarea {
+  border: 0;
+  padding: 10px;
+  margin: 0;
+  border-radius: 5px;
+  outline: none;
+  background-color: rgba(0, 0, 0, 0.3);
+  color: white;
+}
+
+textarea {
+  font-family: inherit;
+  font-size: inherit;
+}
+
+form#search input {
+  min-width: 250px;
+}
+
+form#create {
+  width: 300px;
+}
+
+form#create textarea {
+  resize: none;
+  min-height: 1.5em;
+}
+
+#create * {
+  margin-bottom: 10px;
+  display: block;
+  width: -webkit-fill-available;
+}
+
+input.with-button {
+  padding-right: 40px;
+}
+
+select {
+  padding: 8px;
+  border-radius: 5px;
+  padding-right: 30px;
+  background: rgba(0, 0, 0, 0.3) url(select-arrow.png) no-repeat 100% 50%;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: var(--text-color);
+  outline: none;
+  appearance: none;
+}
+
+select option {
+  background-color: #191f26;
+}
+
+select::-webkit-scrollbar-track {
+  background-color: #191f26;
+}
+
+select::-webkit-scrollbar-thumb {
+  background-color: rgba(255, 255, 255, 0.05);
+}
+
+select::-webkit-scrollbar-thumb:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+button:not(.inside) {
+  padding: 8px;
+  border-radius: 5px;
+  background-color: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  color: var(--text-color);
+  font-weight: bold;
+  cursor: pointer;
+}
+
+button.inside {
+  cursor: pointer;
+  margin-left: -40px;
+  background: transparent;
+  outline: 0;
+  border: none;
+}
+
+button.show {
+  padding: 0;
+  font-weight: bold;
+  cursor: pointer;
+  background: transparent;
+  outline: 0;
+  border: none;
+  color: white;
+}
+
+table td.hide input {
+  padding: 0;
+  background: transparent;
+}
+
+table th {
+  vertical-align: top;
+}
+
+table th,
+table td {
+  padding: 10px;
+}
+
+table th {
+  padding-left: 20px;
+  text-align: right;
+  background: rgba(0, 0, 0, 0.4);
+}
+
+table td {
+  background: rgba(0, 0, 0, 0.2);
+  text-align: justify;
+}
+
+table tr:first-child th {
+  border-top-left-radius: 5px;
+}
+
+table tr:first-child td {
+  border-top-right-radius: 5px;
+}
+
+table tr:last-child th {
+  border-bottom-left-radius: 5px;
+}
+
+table tr:last-child td {
+  border-bottom-right-radius: 5px;
+}
+
+#delete {
+  position: absolute;
+  top: 44px;
+  right: 0;
+}
+
+#edit {
+  display: inline-grid;
+  width: -webkit-fill-available;
+}
+
+#edit * {
+  margin-bottom: 5px;
+}
+
+#edit input {
+  width: 300px;
+}
+
+#edit textarea {
+  resize: vertical;
+}
+
+/* Login */
+
+form.login,
+form.signup {
+  background-color: rgba(0, 0, 0, 0.3);
+  width: 350px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+  border-radius: 10px;
+}
+
+form.login.error,
+form.signup.error {
+  border: 1px solid red;
+  background-color: rgba(255, 0, 0, 0.1);
+}
+
+form.login input,
+form.signup input {
+  width: 100%;
+  padding: 12px 5px;
+  margin-bottom: 15px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.35);
+  background: transparent;
+  color: #ccc;
+  box-sizing: border-box;
+  border-radius: 0;
+}
+
+form.login input:active,
+form.login input:focus,
+form.singup input:active,
+form.singup input:focus {
+  border-bottom: 1px solid var(--accent-color);
+}
+
+form.login button,
+form.signup button {
+  transition: all 0.2s ease;
+  background-color: rgba(255, 255, 255, 0.05);
+  margin-top: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  color: rgba(255, 255, 255, 0.5);
+  font-weight: bold;
+  font-size: 16px;
+  padding: 12px;
+  cursor: pointer;
+  width: 100%;
+  border-radius: 10px;
+}
+
+form.login button:hover,
+form.signup button:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+  border: 1px solid transparent;
+}
+
+.loginContainer,
+.signupContainer {
+  padding: 16px;
+}
+
+.loginContainer h3.error {
+  color: red;
+  text-align: center;
+  margin: 0;
+  margin-top: 10px;
+}

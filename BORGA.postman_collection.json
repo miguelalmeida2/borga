@@ -1,0 +1,227 @@
+{
+  "info": {
+    "_postman_id": "37ac1663-3551-4e7a-94d8-34f2a7f5ee98",
+    "name": "BORGA",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Most popular games",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8888/api/games/mostPopular",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "8888",
+          "path": ["api", "games", "mostPopular"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Search game by name",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8888/api/games/?name=Monopoly",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "8888",
+          "path": ["api", "games", ""],
+          "query": [
+            {
+              "key": "name",
+              "value": "Monopoly"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "List all groups",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8888/api/groups",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "8888",
+          "path": ["api", "groups"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Get group details",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8888/api/groups/F3hMYQhmP7MhwpaC",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "8888",
+          "path": ["api", "groups", "F3hMYQhmP7MhwpaC"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Edit group",
+      "request": {
+        "method": "PUT",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{    \r\n    \"name\": \"postmanTestGroup\",\r\n    \"description\": \"A test group for the Postman collection\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:8888/api/groups/F3hMYQhmP7MhwpaC",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "8888",
+          "path": ["api", "groups", "F3hMYQhmP7MhwpaC"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Create group",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"name\": \"postmanTestGroup\",\r\n    \"description\": \"A test group for the Postman collection\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:8888/api/groups",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "8888",
+          "path": ["api", "groups"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Delete group",
+      "request": {
+        "method": "DELETE",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8888/api/groups/M3LnOfYfQyCACKkm",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "8888",
+          "path": ["api", "groups", "M3LnOfYfQyCACKkm"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Add game to group",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"gameId\": \"TAAifFP590\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:8888/api/groups/F3hMYQhmP7MhwpaC/games",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "8888",
+          "path": ["api", "groups", "F3hMYQhmP7MhwpaC", "games"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Remove game from group",
+      "request": {
+        "method": "DELETE",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8888/api/groups/F3hMYQhmP7MhwpaC/games/TAAifFP590",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "8888",
+          "path": ["api", "groups", "F3hMYQhmP7MhwpaC", "games", "TAAifFP590"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Create user",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"name\": \"Mr. Postman\",\r\n    \"username\": \"postman\",\r\n    \"password\": \"12345678\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:8888/api/users",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "8888",
+          "path": ["api", "users"]
+        }
+      },
+      "response": []
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "fz3zMebxQXybYskc567j5w",
+        "type": "string"
+      }
+    ]
+  },
+  "event": [
+    {
+      "listen": "prerequest",
+      "script": {
+        "type": "text/javascript",
+        "exec": [""]
+      }
+    },
+    {
+      "listen": "test",
+      "script": {
+        "type": "text/javascript",
+        "exec": [""]
+      }
+    }
+  ]
+}
